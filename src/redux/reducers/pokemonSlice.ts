@@ -2,14 +2,12 @@ import {  createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from "../store";
 import { getAllPokemons } from "../actionsThunk/pokemon";
+import { PokeMap } from "../../interfaces";
 
-interface Pokemon {
-    name: string;
-    url: string;
-  }
+
   
   interface PokemonInterface {
-    pokemons: Pokemon[],
+    pokemons: PokeMap[],
     isLoad : boolean
   }
 
@@ -26,19 +24,19 @@ export const pokemonSlice = createSlice({
     reducers : {
 
     },
+
     extraReducers : (builder) => {
 
-        builder.addCase(getAllPokemons.pending, (state : PokemonInterface) => {
+        builder.addCase(getAllPokemons.pending, (state ) => {
             state.isLoad = true;
         })
 
-        builder.addCase(getAllPokemons.fulfilled, (state : PokemonInterface, action) => {
+        builder.addCase(getAllPokemons.fulfilled, (state , action) => {
             state.isLoad = false
-            console.log(action.payload)
             state.pokemons = action.payload
         })
 
-        builder.addCase(getAllPokemons.rejected, (state : PokemonInterface, action) => {
+        builder.addCase(getAllPokemons.rejected, (state , action) => {
             console.log(action)
             state.isLoad = true
         })
