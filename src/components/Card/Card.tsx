@@ -18,7 +18,7 @@ const Card = ({ name, image, abilities, weight }: PokeMap) => {
         <p>
           Habilidades: {abilities.map((a) => `${a.charAt(0).toUpperCase() + a.slice(1)} `)}
         </p>
-        <span>Peso: {weight}</span>
+        <span>Peso: {weight}Kg</span>
       </CardSection>
     </CardContainer>
   );

@@ -4,6 +4,7 @@ import { getAllPokemons } from '../../redux/actionsThunk/pokemon';
 import { PokeMap } from '../../interfaces';
 import Card from '../../components/Card/Card';
 import { PokemonList } from './styled-components/Home';
+import Navbar from '../../components/Navbar/Navbar';
 
 const Home = () => {
     const bringData = useAppSelector((state) => state.pokemons);
@@ -19,6 +20,8 @@ const Home = () => {
         {bringData.pokemons.length === 0 ? (
           <h1>Cargando...</h1>
         ) : (
+          <> 
+            <Navbar/>
             <PokemonList>
             {
               bringData.pokemons.map((pokemon : PokeMap, index : number) => {
@@ -35,6 +38,7 @@ const Home = () => {
               })
             }
           </PokemonList>
+          </>
         )}
   
       </div>
