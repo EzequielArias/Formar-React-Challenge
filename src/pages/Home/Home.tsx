@@ -1,30 +1,32 @@
 import { useEffect} from 'react'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { getAllPokemons } from '../../redux/actionsThunk/pokemon';
+import { getAllPokemons, getAllAbilities } from '../../redux/actionsThunk/pokemon';
 import { PokeMap } from '../../interfaces';
 import Card from '../../components/Card/Card';
 import { PokemonList } from './styled-components/Home';
 import Navbar from '../../components/Navbar/Navbar';
+import { PokemonInterface } from '../../interfaces';
 
 const Home = () => {
-    const bringData = useAppSelector((state) => state.pokemons);
+    const pokemonFeature : PokemonInterface  = useAppSelector((state) => state.pokemons);
     const dispatch = useAppDispatch();
-  
+
     useEffect(() => {
-      dispatch(getAllPokemons());
+      dispatch(getAllPokemons())
+      dispatch(getAllAbilities())
     }, []);
   
   
     return (
       <div>
-        {bringData.pokemons.length === 0 ? (
+        {pokemonFeature.isLoad  ? (
           <h1>Cargando...</h1>
         ) : (
           <> 
             <Navbar/>
             <PokemonList>
             {
-              bringData.pokemons.map((pokemon : PokeMap, index : number) => {
+              pokemonFeature.pokemons.map((pokemon : PokeMap, index : number) => {
 
                 return (
                   <Card

@@ -1,5 +1,17 @@
 import styled from 'styled-components'
 
+export const DeleteCross = styled.span `
+    position : relative;
+    right : 4em;
+    bottom : 3.5em;
+
+    @media screen and (max-width: 526px) {
+
+        right : 8em;
+        bottom : 3em;
+    }
+`
+
 export const CardContainer = styled.div `
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
     font-family: 'Roboto Mono', monospace;
@@ -49,8 +61,7 @@ export const CardSection = styled.section `
     width : 100%;
     padding-bottom : 18px;
     text-align : center;
-    `
-
+`
 export const PokemonCircle = styled.span `
 background-color : white;
 border-radius : 60px;
