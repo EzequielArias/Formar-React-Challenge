@@ -11,7 +11,6 @@ export const DeleteCross = styled.span `
         bottom : 3em;
     }
 `
-
 export const CardContainer = styled.div `
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
     font-family: 'Roboto Mono', monospace;
