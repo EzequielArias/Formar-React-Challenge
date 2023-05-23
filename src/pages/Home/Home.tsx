@@ -6,6 +6,7 @@ import Card from '../../components/Card/Card';
 import { PokemonList, HomeContainer } from './styled-components/Home';
 import Navbar from '../../components/Navbar/Navbar';
 import { PokemonInterface } from '../../interfaces';
+import Loader from '../../components/Loader/Loader';
 
 const Home = () => {
     const pokemonFeature : PokemonInterface  = useAppSelector((state) => state.pokemons);
@@ -20,7 +21,7 @@ const Home = () => {
     return (
       <HomeContainer>
         {pokemonFeature.isLoad  ? (
-          <h1>Cargando...</h1>
+          <Loader/>
         ) : (
           <> 
             <Navbar/>

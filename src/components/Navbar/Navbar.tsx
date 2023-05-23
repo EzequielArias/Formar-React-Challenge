@@ -15,7 +15,7 @@ import {
   filterAbilities,
   removePokemons,
 } from "../../redux/reducers/pokemonSlice";
-import { searchByInput } from "../../redux/actionsThunk/pokemon";
+import { searchByInput, getAllPokemons } from "../../redux/actionsThunk/pokemon";
 import { Link } from "react-router-dom";
 import pokeLogo from "../../assets/pokeball2.png";
 
@@ -58,6 +58,11 @@ const Navbar = () => {
     }
   };
 
+  const HandleSearch = () => {
+    setSearch(() =>{ return {query : "", isActive : false}})
+    dispatch(getAllPokemons())
+  }
+
   const clenPokemons = () => {
     dispatch(removePokemons());
   };
@@ -91,6 +96,7 @@ const Navbar = () => {
       </Navigation>
       <DumpContainer>
         <SearchResult
+        onClick={HandleSearch}
           style={search.isActive ? { display: "" } : { display: "none" }}
         >
           Pokemons encontrados : {pokemons.length}

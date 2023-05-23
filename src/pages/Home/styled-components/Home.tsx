@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import pixelGrass from "../../../assets/grass.jpg";
 
 export const PokemonList = styled.div`
   display: flex;
@@ -7,7 +6,7 @@ export const PokemonList = styled.div`
 `;
 
 export const HomeContainer = styled.div`
-  background-image: url(${pixelGrass});
+background-color : #0a7281;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
