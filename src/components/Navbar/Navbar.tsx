@@ -5,7 +5,8 @@ import {
   DumpPokemons,
   DumpContainer,
   BarsContainter,
-  Img
+  Img,
+  SearchResult,
 } from "./styled-components/Navbar";
 import { FaBars } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -20,7 +21,10 @@ import pokeLogo from "../../assets/pokeball2.png";
 
 const Navbar = () => {
   const [options, setOptions] = useState<String>("");
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<{ query: string; isActive: boolean }>({
+    query: "",
+    isActive: false,
+  });
 
   const dispatch = useAppDispatch();
 
@@ -34,12 +38,23 @@ const Navbar = () => {
 
   const pokeInput = (e: any) => {
     e.preventDefault();
-    setSearch(e.target.value);
+    setSearch((current) => {
+      return {
+        ...current,
+        query: e.target.value,
+      };
+    });
   };
 
   const searchPoke = (e: any) => {
     if (e.keyCode === 13) {
-      dispatch(searchByInput(search));
+      dispatch(searchByInput(search.query));
+      setSearch((current) => {
+        return {
+          ...current,
+          isActive: true,
+        };
+      });
     }
   };
 
@@ -47,7 +62,12 @@ const Navbar = () => {
     dispatch(removePokemons());
   };
 
-  const pokemonsDump = useAppSelector((state) => state.pokemons.pokemonToDump)
+  const { pokemonsToDump, pokemons } = useAppSelector((state) => {
+    return {
+      pokemonsToDump: state.pokemons.pokemonToDump,
+      pokemons: state.pokemons.pokemons,
+    };
+  });
 
   return (
     <>
@@ -70,10 +90,19 @@ const Navbar = () => {
         </BarsContainter>
       </Navigation>
       <DumpContainer>
-        <DumpPokemons 
-        onClick={clenPokemons}
-        style={pokemonsDump.length > 0 ? {display : ''} : {display : 'none'}} 
-        >Borrar pokemons</DumpPokemons>
+        <SearchResult
+          style={search.isActive ? { display: "" } : { display: "none" }}
+        >
+          Pokemons encontrados : {pokemons.length}
+        </SearchResult>
+        <DumpPokemons
+          onClick={clenPokemons}
+          style={
+            pokemonsToDump.length > 0 ? { display: "" } : { display: "none" }
+          }
+        >
+          Borrar pokemons
+        </DumpPokemons>
       </DumpContainer>
     </>
   );

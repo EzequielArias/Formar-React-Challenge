@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { getAllPokemons, getAllAbilities } from '../../redux/actionsThunk/pokemon';
 import { PokeMap } from '../../interfaces';
 import Card from '../../components/Card/Card';
-import { PokemonList } from './styled-components/Home';
+import { PokemonList, HomeContainer } from './styled-components/Home';
 import Navbar from '../../components/Navbar/Navbar';
 import { PokemonInterface } from '../../interfaces';
 
@@ -18,7 +18,7 @@ const Home = () => {
   
   
     return (
-      <div>
+      <HomeContainer>
         {pokemonFeature.isLoad  ? (
           <h1>Cargando...</h1>
         ) : (
@@ -43,7 +43,7 @@ const Home = () => {
           </>
         )}
   
-      </div>
+      </HomeContainer>
     );
 }
 

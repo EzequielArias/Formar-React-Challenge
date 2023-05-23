@@ -9,19 +9,16 @@ display : flex;
 align-items : center;
 justify-content : center;
 
-@media screen and (max-width: 768px) {
-
-}
-
+border-bottom : 2px solid black;
 `
 export const DumpPokemons = styled.span `
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
-
 
     background-color : orange;
     padding : 0.4em;
     border : 1px solid black;
     font-family: 'Roboto Mono', monospace;
+    width : 35%;
 
     & :hover, :focus {
       animation: pulse 1s;
@@ -34,6 +31,11 @@ export const DumpPokemons = styled.span `
 export const DumpContainer = styled.div `
 text-align: center;
 margin-top : 1em;
+
+display : flex;
+flex-direction : column;
+justify-content : center;
+align-items : center;
 `
 
 export const BarsContainter = styled.div `
@@ -82,4 +84,15 @@ export const LogoContainer = styled.a `
 export const Img = styled.img `
 height : 50px;
 width : 50px;
+`
+
+export const SearchResult = styled.span `
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+font-family: 'Roboto Mono', monospace;  
+font-size : 2em;
+margin-bottom : 1em;
+padding : 15px;
+background-color : orange;
+border : 1px solid black;
+border-radius : 50px;
 `
