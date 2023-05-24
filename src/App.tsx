@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import Detail from "./pages/Detail/Detail";
 
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path="/Home" element={<Home/>}/>
+      <Route path="/Detail/:id" element={<Detail/>}/>
     </Routes>
   </BrowserRouter>
   )

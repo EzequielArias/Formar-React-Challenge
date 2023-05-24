@@ -4,6 +4,7 @@ import {
   getAllAbilities,
   getAllPokemons,
   searchByInput,
+  getClickedPokemon
 } from "../actionsThunk/pokemon";
 import { PokemonInterface, PokeMap } from "../../interfaces";
 
@@ -12,6 +13,7 @@ const initialState: PokemonInterface = {
   abilities: [],
   isLoad: true,
   pokemonToDump: [],
+  pokemonDetail : {}
 };
 
 export const pokemonSlice = createSlice({
@@ -75,7 +77,7 @@ export const pokemonSlice = createSlice({
 
     // Search pokemons
     builder.addCase(searchByInput.pending, (state, action) => {
-      console.log("amasfa");
+      console.log("Pending SearchInput");
     });
 
     builder.addCase(searchByInput.fulfilled, (state, action) => {
@@ -83,8 +85,14 @@ export const pokemonSlice = createSlice({
     });
 
     builder.addCase(searchByInput.rejected, (state, action) => {
-      console.log("Lo que sea pero tiro terrible error");
+      console.log("Error searchInput reject");
     });
+
+    // Get detailed pokemon
+
+    builder.addCase(getClickedPokemon.fulfilled, (state, action ) => {
+      state.pokemonDetail = action.payload
+    })
   },
 });
 

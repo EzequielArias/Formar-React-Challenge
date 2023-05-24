@@ -3,6 +3,8 @@ import {
   CardSection,
   PokemonCircle,
   DeleteCross,
+  StyledLink,
+  PokemonImage
 } from "./styled-components/Card.styles";
 import { PokeMap } from "../../interfaces";
 import { ImCross } from "react-icons/im";
@@ -12,7 +14,7 @@ import { useAppDispatch } from "../../redux/hooks";
 
 // https://pokeapi.co/api/v2/egg-group/:id a que categoria de pokemon pertenece cada pokemon
 
-const Card = ({ name, image, abilities, weight }: PokeMap) => {
+const Card = ({ name, image, abilities, weight, id }: PokeMap) => {
   const [show, setShow] = useState(true);
   const dispatch = useAppDispatch()
 
@@ -25,16 +27,16 @@ const Card = ({ name, image, abilities, weight }: PokeMap) => {
       setShow(!show);
       dispatch(revertPokemon(name))
     }
-    
   };
 
   return (
-    <CardContainer>
+    <StyledLink to={`/Detail/${id}`}>
+     <CardContainer>
       <DeleteCross onClick={deletePOkemon}>
         <ImCross style={show ? { color: "black" } : { color: "red" }} />
       </DeleteCross>
       <PokemonCircle>
-        <img src={image} alt="" />
+        <PokemonImage src={image} alt="" />
       </PokemonCircle>
       <CardSection>
         <h2>{name}</h2>
@@ -45,6 +47,7 @@ const Card = ({ name, image, abilities, weight }: PokeMap) => {
         <span>Peso: {weight}Kg</span>
       </CardSection>
     </CardContainer>
+    </StyledLink>
   );
 };
 

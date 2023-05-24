@@ -1,6 +1,25 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+export const getClickedPokemon = createAsyncThunk("getClicked/pokemon", async (pokemon : number) => {
+  try {
+    let { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+
+    return {
+      id : data.id,
+      name: data.name,
+      image: data.sprites.front_default,
+      weight: data.weight,
+      abilities: data.abilities.map((item: any) => {
+        return `${item.ability.name}`;
+      }),
+    };
+    
+  } catch (error : any) {
+    throw new Error(error.message)
+  }
+})
+
 export const getAllPokemons = createAsyncThunk("get/pokemons", async () => {
   try {
     let { data } = await axios.get(
@@ -10,6 +29,7 @@ export const getAllPokemons = createAsyncThunk("get/pokemons", async () => {
     const promises = data.results.map(async (item: any) => {
       const { data } = await axios.get(item.url);
       return {
+        id : data.id,
         name: data.name,
         image: data.sprites.front_default,
         weight: data.weight,
@@ -44,6 +64,7 @@ export const searchByInput = createAsyncThunk("get/pokemon/search", async (strin
     let pokemons = result.map(async (item: any) => {
       const { data } = await axios.get(item.url);
       return {
+        id : data.id,
         name: data.name,
         image: data.sprites.front_default,
         weight: data.weight,

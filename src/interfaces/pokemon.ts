@@ -1,4 +1,5 @@
 export interface PokeMap {
+    id : number,
     name : string,
     abilities : String[],
     image : string,
@@ -9,5 +10,6 @@ export interface PokemonInterface {
   pokemons: PokeMap[],
   abilities : String[],
   isLoad : boolean,
-  pokemonToDump : string[]
+  pokemonToDump : string[],
+  pokemonDetail : any
 }

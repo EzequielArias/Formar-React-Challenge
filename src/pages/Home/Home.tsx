@@ -32,6 +32,7 @@ const Home = () => {
                 return (
                   <Card
                   key={index}
+                  id={pokemon.id}
                   name={pokemon.name}
                   image={pokemon.image}
                   weight={pokemon.weight}

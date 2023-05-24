@@ -1,5 +1,18 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
+export const StyledLink = styled(Link) `
+    text-decoration : none;
+    color : black;
+    margin : 1em;
+    width : 45%;
+    display: flex;
+    align-items : center;
+    justify-content : center;
+    @media screen and (max-width: 768px) {
+        margin : 0;
+    }
+`
 export const DeleteCross = styled.span `
     position : relative;
     right : 4em;
@@ -7,8 +20,8 @@ export const DeleteCross = styled.span `
 
     @media screen and (max-width: 526px) {
 
-        right : 8em;
-        bottom : 3em;
+        right : 6em;
+        bottom : 6em;
     }
 `
 export const CardContainer = styled.div `
@@ -16,10 +29,8 @@ export const CardContainer = styled.div `
     font-family: 'Roboto Mono', monospace;
 
     border : 2px solid black;
-    margin : 1em;
-    width : 30%;
-    height : 18em;
-
+   
+    width : 80%;
     display : flex;
     justify-content : center;
     align-items : center;
@@ -29,30 +40,27 @@ export const CardContainer = styled.div `
 
     background-color : #bee3e4;
 
-    & img {
+    & :before {
+        content : "",
         height : 150px;
         width : 150px;
-    }
+        background : conic-gradient(
+            #fd004c,
+            #f39000,
+            #fff020,
+            #3edf4b,
+            #3363ff,
+            #b102b7,
+            #fd004c
+        );
+    };
 
     & h2, p ,span {
         margin : 5px
     }
 
-
-    @media screen and (max-width: 768px) {
-        width : 45%;
-        
-    }
-
-
     @media screen and (max-width: 526px) {
-
-        width : 100%;
-
-        & img {
-            height : 100px;
-            width : 100px;
-        }
+        width : 95%;
     }
 `
 export const CardSection = styled.section `
@@ -65,4 +73,15 @@ export const PokemonCircle = styled.span `
 background-color : white;
 border-radius : 60px;
 margin-top : 0.5em;
+`
+
+export const PokemonImage = styled.img `
+    height : 200px;
+    width :  200px;
+
+
+    @media screen and (max-width: 526px) {
+        height : 200px;
+        width :  200px;
+    }
 `
