@@ -89,9 +89,17 @@ export const pokemonSlice = createSlice({
     });
 
     // Get detailed pokemon
+    
+    builder.addCase(getClickedPokemon.pending, (state, action) => {
+      console.log('Pending getCLicked pokemon')
+    })
 
     builder.addCase(getClickedPokemon.fulfilled, (state, action ) => {
       state.pokemonDetail = action.payload
+    })
+
+    builder.addCase(getClickedPokemon.rejected, (state, action) => {
+      console.log('Something goes wrong')
     })
   },
 });

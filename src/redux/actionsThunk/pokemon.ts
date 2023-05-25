@@ -1,20 +1,32 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { PokeDetail } from "../../interfaces";
 
-export const getClickedPokemon = createAsyncThunk("getClicked/pokemon", async (pokemon : number) => {
+export const getClickedPokemon = createAsyncThunk("getClicked/pokemon", async (pokemon : number) : Promise<PokeDetail> => {
   try {
     let { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
 
-    return {
-      id : data.id,
+    const poke = {
       name: data.name,
-      image: data.sprites.front_default,
+      images: [
+        data.sprites.front_default,
+        data.sprites.front_female,
+        data.sprites.front_shiny_female,
+        data.sprites.back_female,
+        data.sprites.back_default,
+        data.sprites.front_shiny,
+        data.sprites.back_shiny
+        ],
       weight: data.weight,
       abilities: data.abilities.map((item: any) => {
         return `${item.ability.name}`;
       }),
+      height : data.height,
+      type : data.types[0].type.name
     };
-    
+
+    return poke
+  
   } catch (error : any) {
     throw new Error(error.message)
   }
