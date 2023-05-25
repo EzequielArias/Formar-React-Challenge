@@ -32,10 +32,11 @@ export const getClickedPokemon = createAsyncThunk("getClicked/pokemon", async (p
   }
 })
 
-export const getAllPokemons = createAsyncThunk("get/pokemons", async () => {
+export const getAllPokemons = createAsyncThunk("get/pokemons", async (value : number) => {
+  console.log(value)
   try {
     let { data } = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=30"
+      `https://pokeapi.co/api/v2/pokemon/?offset=${value}&limit=25`
     );
 
     const promises = data.results.map(async (item: any) => {

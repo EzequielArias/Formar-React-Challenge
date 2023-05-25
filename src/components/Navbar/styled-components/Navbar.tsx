@@ -85,6 +85,10 @@ export const Img = styled.img `
 height : 50px;
 width : 50px;
 `
+export const Img2 = styled.img `
+  height : 150px;
+  width : 250px;
+`
 
 export const SearchResult = styled.span `
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');

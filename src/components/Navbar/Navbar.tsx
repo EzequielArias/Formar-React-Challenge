@@ -6,6 +6,7 @@ import {
   DumpContainer,
   BarsContainter,
   Img,
+  Img2,
   SearchResult,
 } from "./styled-components/Navbar";
 import { FaBars } from "react-icons/fa";
@@ -15,9 +16,13 @@ import {
   filterAbilities,
   removePokemons,
 } from "../../redux/reducers/pokemonSlice";
-import { searchByInput, getAllPokemons } from "../../redux/actionsThunk/pokemon";
-import { Link } from "react-router-dom";
+import {
+  searchByInput,
+  getAllPokemons,
+} from "../../redux/actionsThunk/pokemon";
+import { Link, useLocation } from "react-router-dom";
 import pokeLogo from "../../assets/pokeball2.png";
+import PokemonTitleLogo from '../../assets/PokemonLogo.png'
 
 const Navbar = () => {
   const [options, setOptions] = useState<String>("");
@@ -25,6 +30,7 @@ const Navbar = () => {
     query: "",
     isActive: false,
   });
+  const location = useLocation()
 
   const dispatch = useAppDispatch();
 
@@ -59,9 +65,11 @@ const Navbar = () => {
   };
 
   const HandleSearch = () => {
-    setSearch(() =>{ return {query : "", isActive : false}})
-    dispatch(getAllPokemons())
-  }
+    setSearch(() => {
+      return { query: "", isActive: false };
+    });
+    dispatch(getAllPokemons());
+  };
 
   const clenPokemons = () => {
     dispatch(removePokemons());
@@ -76,7 +84,12 @@ const Navbar = () => {
 
   return (
     <>
-      <Navigation>
+      {
+        location.pathname === '/home' 
+        ?
+        (
+          <>
+          <Navigation>
         <Link
           to={"/home"}
           style={{
@@ -94,9 +107,15 @@ const Navbar = () => {
           <FaBars />
         </BarsContainter>
       </Navigation>
-      <DumpContainer>
+      <DumpContainer
+        style={
+          pokemonsToDump.length !== 0 || search.isActive
+            ? { display: "" }
+            : { display: "none" }
+        }
+      >
         <SearchResult
-        onClick={HandleSearch}
+          onClick={HandleSearch}
           style={search.isActive ? { display: "" } : { display: "none" }}
         >
           Pokemons encontrados : {pokemons.length}
@@ -110,6 +129,26 @@ const Navbar = () => {
           Borrar pokemons
         </DumpPokemons>
       </DumpContainer>
+      </>
+        ) 
+        : 
+        (
+          <Navigation>
+          <Link
+            to={"/home"}
+            style={{
+              width: "50%",
+              fontSize: "2.5em",
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            <Img src={pokeLogo} />
+          </Link>
+          <Img2 src={PokemonTitleLogo}/>
+        </Navigation>
+        )
+      }
     </>
   );
 };

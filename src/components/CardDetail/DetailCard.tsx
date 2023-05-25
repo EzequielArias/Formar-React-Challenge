@@ -99,7 +99,7 @@ const DetailCard = ({ name, images, weight, abilities, type, height }: PokeDetai
               <PokemonStats>Numero : {id} </PokemonStats>
               <PokemonStats>Altura : {height} M</PokemonStats>
               <PokemonStats>Peso : {weight} Kg</PokemonStats>
-              <PokemonStats>Habilidades : {abilities.map((p : any) =>{ return (<span>{p}  </span>)})}</PokemonStats>
+              <PokemonStats>Habilidades : {abilities.map((p : any, index : number) =>{ return (<span key={index}>{p}  </span>)})}</PokemonStats>
 
             </DetailStats>
 

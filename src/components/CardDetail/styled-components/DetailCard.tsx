@@ -2,8 +2,13 @@ import styled from 'styled-components'
 
 export const DetailContainer = styled.div `
     width : 100%;
-    height : 82.5vh;
+    height : 85vh;
     display : flex;
+
+
+    @media screen and (max-width: 768px) {
+       flex-direction : column;
+      }
 `
 
 export const DetailPoke = styled.div `
@@ -11,6 +16,10 @@ export const DetailPoke = styled.div `
     width : 50%;
     background-color : #343434;
     text-align : center;
+
+    @media screen and (max-width: 768px) {
+        width :100%;
+    }
 `
 
 export const Pokemon_IMG = styled.img `
@@ -20,10 +29,18 @@ export const LeftArrow = styled.span `
     height : 100%;
     font-size : 50px;
     color : black;
+
+    & :hover {
+        color : grey;
+    }
     `
 export const RightArrow = styled.span`
     font-size : 50px;
     color : black;
+
+    & :hover {
+        color : grey;
+    }
 `
 
 // DETAIL POKEMON
@@ -40,6 +57,10 @@ justify-content : center;
 font-family: 'Montserrat', sans-serif;
 color : white;
 
+@media screen and (max-width: 768px) {
+    padding-top : 10px;
+    width :100%;
+}
 `
 
 export const PokemonName = styled.h2 `
