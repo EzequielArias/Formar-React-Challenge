@@ -71,35 +71,3 @@ export const DotLoading = styled.p`
   }
 `;
 
-export const ScrollLoader = styled.div `
-
-  width : 60px;
-  height : 60px;
-  border-radius : 50%;
-  animation : spin 1.2s linear infinite;
-
-  & :after {
-    content : "",
-    position : absolute;
-    border-radius : inherit;
-    backgroun-color : #0a7281;
-    height : 85%;
-    width : 85%;
-  }
-
-  & :before {
-    width : 100%;
-    height : 100%;
-    background-image : linear-gradient(
-      0deg,
-      #f0c 0%,
-      #80f 100%
-    )
-  }
-
-  @keyframes spin {
-    to {
-      transform : rotate(360deg);
-    }
-  }
-`

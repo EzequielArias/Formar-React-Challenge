@@ -65,7 +65,7 @@ export const pokemonSlice = createSlice({
 
     builder.addCase(getAllPokemons.fulfilled, (state, action) => {
       state.isLoad = false;
-       state.pokemons =  [state.pokemons, ...action.payload]
+       state.pokemons =  [...state.pokemons, ...action.payload]
     });
 
     builder.addCase(getAllPokemons.rejected, (state) => {

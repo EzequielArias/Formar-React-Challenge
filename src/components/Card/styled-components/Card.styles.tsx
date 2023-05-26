@@ -4,37 +4,25 @@ import { Link } from 'react-router-dom'
 export const StyledLink = styled(Link) `
     text-decoration : none;
     color : black;
-    margin : 1em;
-    width : 45%;
-    display: flex;
-    align-items : center;
-    justify-content : center;
+    display : flex;
+    flex-direction : column;
     @media screen and (max-width: 768px) {
         margin : 0;
     }
 `
-export const DeleteCross = styled.span `
-    position : relative;
-    right : 4em;
-    bottom : 3.5em;
 
-    @media screen and (max-width: 526px) {
-
-        right : 6em;
-        bottom : 6em;
-    }
-`
 export const CardContainer = styled.div `
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
     font-family: 'Roboto Mono', monospace;
 
+    width : 40%;
     border : 2px solid black;
-   
-    width : 80%;
     display : flex;
+    flex-direction : column;
     justify-content : center;
     align-items : center;
-    flex-wrap : wrap;
+
+    margin : 1em;
 
     border-radius : 45px;
 
@@ -63,6 +51,19 @@ export const CardContainer = styled.div `
         width : 95%;
     }
 `
+export const DeleteCross = styled.span `
+  
+    & :hover {
+        color : red;
+    }
+
+    @media screen and (max-width: 526px) {
+
+        right : 6em;
+        bottom : 6em;
+    }
+`
+
 export const CardSection = styled.section `
 
     width : 100%;
@@ -73,6 +74,8 @@ export const PokemonCircle = styled.span `
 background-color : white;
 border-radius : 60px;
 margin-top : 0.5em;
+display: inline-block;
+  text-align: center;
 `
 
 export const PokemonImage = styled.img `

@@ -68,10 +68,10 @@ const Navbar = () => {
     setSearch(() => {
       return { query: "", isActive: false };
     });
-    dispatch(getAllPokemons());
+    //dispatch(getAllPokemons());
   };
 
-  const clenPokemons = () => {
+  const cleanPokemons = () => {
     dispatch(removePokemons());
   };
 
@@ -121,7 +121,7 @@ const Navbar = () => {
           Pokemons encontrados : {pokemons.length}
         </SearchResult>
         <DumpPokemons
-          onClick={clenPokemons}
+          onClick={cleanPokemons}
           style={
             pokemonsToDump.length > 0 ? { display: "" } : { display: "none" }
           }

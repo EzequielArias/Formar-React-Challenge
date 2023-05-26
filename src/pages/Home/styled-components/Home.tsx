@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const PokemonList = styled.div`
   display: flex;
+  align-items : center;
+  justify-content : center;
   flex-wrap: wrap;
 `;
 
@@ -11,3 +13,9 @@ background-color : #0a7281;
   background-size: cover;
   background-repeat: no-repeat;
 `;
+
+export const ScrollLoader = styled.span `
+  display : flex;
+  align-items : center;
+  justify-content : center;
+`

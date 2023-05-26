@@ -3,29 +3,33 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getAllPokemons } from "../../redux/actionsThunk/pokemon";
 import { PokeMap } from "../../interfaces";
 import Card from "../../components/Card/Card";
-import { PokemonList, HomeContainer } from "./styled-components/Home";
+import {
+  PokemonList,
+  HomeContainer,
+  ScrollLoader,
+} from "./styled-components/Home";
 import Navbar from "../../components/Navbar/Navbar";
 import { PokemonInterface } from "../../interfaces";
 import Loader from "../../components/Loader/Loader";
-import { ScrollLoader } from "../../components/Loader/styled-components/Loader";
+import { InfinitySpin } from "react-loader-spinner";
 
 const Home = () => {
   const pokemonFeature: PokemonInterface = useAppSelector(
     (state) => state.pokemons
   );
   const dispatch = useAppDispatch();
-  const [offset, setOffset] = useState<number>(1);
-  const [scrollLoader, setScrollLoader] = useState<boolean>(true);
+  const [offset, setOffset] = useState<number>(0);
+  const [scrollLoader, setScrollLoader] = useState<boolean>(false);
 
   useEffect(() => {
-      console.log(offset)
+    setTimeout(() => {
       dispatch(getAllPokemons(offset));
       setScrollLoader(false);
+    }, 1500);
   }, [offset]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -34,8 +38,8 @@ const Home = () => {
       window.innerHeight + document.documentElement.scrollTop + 2 >=
       document.documentElement.scrollHeight
     ) {
-        setScrollLoader(!scrollLoader);
-        setOffset((prev) => prev + 16);
+      setScrollLoader(!scrollLoader);
+      setOffset((prev) => prev + 16);
     }
   };
 
@@ -60,10 +64,13 @@ const Home = () => {
               );
             })}
           </PokemonList>
-          {scrollLoader && <ScrollLoader />}
+          <ScrollLoader style={scrollLoader ? { display : ""} : { display : "none"}}>
+            <InfinitySpin
+            color="#fff"
+            />
+          </ScrollLoader>
         </>
       )}
-
     </HomeContainer>
   );
 };
