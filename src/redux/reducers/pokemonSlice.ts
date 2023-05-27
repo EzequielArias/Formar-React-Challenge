@@ -79,11 +79,12 @@ export const pokemonSlice = createSlice({
 
     // Search pokemons
     builder.addCase(searchByInput.pending, (state, action) => {
-      console.log("Pending SearchInput");
+      
     });
 
     builder.addCase(searchByInput.fulfilled, (state, action) => {
             state.pokemons = action.payload
+            state.isLoad = false;
     });
 
     builder.addCase(searchByInput.rejected, (state, action) => {

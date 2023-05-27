@@ -9,14 +9,17 @@ import {
   ScrollLoader,
 } from "./styled-components/Home";
 import Navbar from "../../components/Navbar/Navbar";
-import { PokemonInterface } from "../../interfaces";
 import Loader from "../../components/Loader/Loader";
 import { InfinitySpin } from "react-loader-spinner";
 
 const Home = () => {
-  const pokemonFeature: PokemonInterface = useAppSelector(
-    (state) => state.pokemons
-  );
+  const { pokemonFeature, isSearch } = useAppSelector((state) => {
+    return {
+      pokemonFeature : state.pokemons,
+      isSearch : state.specialRendering
+    }
+  })
+  
   const dispatch = useAppDispatch();
   const [offset, setOffset] = useState<number>(0);
   const [scrollLoader, setScrollLoader] = useState<boolean>(false);
@@ -34,6 +37,12 @@ const Home = () => {
   }, []);
 
   const handleScroll = async () => {
+    console.log(isSearch.isActive)
+    if(isSearch.isActive){
+      console.log('hasta aca llego')
+      return
+    }
+
     if (
       window.innerHeight + document.documentElement.scrollTop + 2 >=
       document.documentElement.scrollHeight
@@ -43,13 +52,14 @@ const Home = () => {
     }
   };
 
+ 
   return (
     <HomeContainer>
       {pokemonFeature.isLoad ? (
         <Loader />
       ) : (
         <>
-          <Navbar />
+          <Navbar/>
           <PokemonList>
             {pokemonFeature.pokemons.map((pokemon: PokeMap, index: number) => {
               return (
@@ -64,7 +74,8 @@ const Home = () => {
               );
             })}
           </PokemonList>
-          <ScrollLoader style={scrollLoader ? { display : ""} : { display : "none"}}>
+          <ScrollLoader 
+            style={scrollLoader ? { display : ""} : { display : "none"}}>
             <InfinitySpin
             color="#fff"
             />

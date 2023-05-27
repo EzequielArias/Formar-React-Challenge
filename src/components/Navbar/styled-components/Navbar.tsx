@@ -101,3 +101,10 @@ border : 1px solid black;
 border-radius : 50px;
 cursor : pointer;
 `
+export const FilterByAbilities = styled.span `
+font-family: 'Roboto Mono', monospace;  
+width : 100%;
+display : flex;
+justify-content : center;
+font-size : 2em;
+`

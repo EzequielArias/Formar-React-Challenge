@@ -8,10 +8,11 @@ import {
   Img,
   Img2,
   SearchResult,
+  FilterByAbilities,
 } from "./styled-components/Navbar";
 import { FaBars } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   filterAbilities,
   removePokemons,
@@ -22,25 +23,49 @@ import {
 } from "../../redux/actionsThunk/pokemon";
 import { Link, useLocation } from "react-router-dom";
 import pokeLogo from "../../assets/pokeball2.png";
-import PokemonTitleLogo from '../../assets/PokemonLogo.png'
+import PokemonTitleLogo from "../../assets/PokemonLogo.png";
+import { isSearchActive } from "../../redux/reducers/specialRendering";
 
 const Navbar = () => {
-  const [options, setOptions] = useState<String>("");
+  const [options, setOptions] = useState<{ query: string; isActive: boolean }>({
+    query: "",
+    isActive: false,
+  });
   const [search, setSearch] = useState<{ query: string; isActive: boolean }>({
     query: "",
     isActive: false,
   });
-  const location = useLocation()
+
+  useEffect(() => {
+
+  },[search.isActive])
+
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
 
   const HandleSelect = (e: any) => {
     e.preventDefault();
-    setOptions(e.target.value);
+    setOptions((prev) => {
+      return {
+        ...prev,
+        query: e.target.value,
+      };
+    });
+    dispatch(getAllPokemons(0))
   };
 
-  const filterByInput = (e: any) =>
-    e.keyCode === 13 ? dispatch(filterAbilities(options)) : "";
+  const filterByInput = (e: any) => {
+    if(e.keyCode === 13){
+      dispatch(filterAbilities(options.query))
+      setOptions((prev) => {
+        return {
+          ...prev,
+          isActive: true,
+        };
+      });
+    }
+  };
 
   const pokeInput = (e: any) => {
     e.preventDefault();
@@ -61,6 +86,13 @@ const Navbar = () => {
           isActive: true,
         };
       });
+      dispatch(isSearchActive(""));
+      setOptions((prev) => {
+        return {
+          ...prev,
+          isActive : false
+        }
+      })
     }
   };
 
@@ -68,7 +100,7 @@ const Navbar = () => {
     setSearch(() => {
       return { query: "", isActive: false };
     });
-    //dispatch(getAllPokemons());
+    dispatch(getAllPokemons(0));
   };
 
   const cleanPokemons = () => {
@@ -84,56 +116,60 @@ const Navbar = () => {
 
   return (
     <>
-      {
-        location.pathname === '/home' 
-        ?
-        (
-          <>
+      {location.pathname === "/home" || location.pathname === "/results" ? (
+        <>
           <Navigation>
-        <Link
-          to={"/home"}
-          style={{
-            width: "50%",
-            fontSize: "2.5em",
-            textDecoration: "none",
-            color: "black",
-          }}
-        >
-          <Img src={pokeLogo} />
-        </Link>
-        <AbilitiesInput onChange={HandleSelect} onKeyDown={filterByInput} />
-        <SearchInput onKeyDown={searchPoke} onChange={pokeInput} />
-        <BarsContainter>
-          <FaBars />
-        </BarsContainter>
-      </Navigation>
-      <DumpContainer
-        style={
-          pokemonsToDump.length !== 0 || search.isActive
-            ? { display: "" }
-            : { display: "none" }
-        }
-      >
-        <SearchResult
-          onClick={HandleSearch}
-          style={search.isActive ? { display: "" } : { display: "none" }}
-        >
-          Pokemons encontrados : {pokemons.length}
-        </SearchResult>
-        <DumpPokemons
-          onClick={cleanPokemons}
-          style={
-            pokemonsToDump.length > 0 ? { display: "" } : { display: "none" }
-          }
-        >
-          Borrar pokemons
-        </DumpPokemons>
-      </DumpContainer>
-      </>
-        ) 
-        : 
-        (
-          <Navigation>
+            <Link
+              to={"/home"}
+              style={{
+                width: "50%",
+                fontSize: "2.5em",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
+              <Img src={pokeLogo} />
+            </Link>
+            <AbilitiesInput onChange={HandleSelect} onKeyDown={filterByInput} />
+            <SearchInput onKeyDown={searchPoke} onChange={pokeInput} />
+            <BarsContainter>
+              <FaBars />
+            </BarsContainter>
+          </Navigation>
+          <DumpContainer
+            style={
+              pokemonsToDump.length !== 0 || search.isActive
+                ? { display: "" }
+                : { display: "none" }
+            }
+          >
+            <SearchResult
+              onClick={HandleSearch}
+              style={search.isActive ? { display: "" } : { display: "none" }}
+            >
+              Pokemons encontrados : {pokemons.length}
+            </SearchResult>
+            <DumpPokemons
+              onClick={cleanPokemons}
+              style={
+                pokemonsToDump.length > 0
+                  ? { display: "" }
+                  : { display: "none" }
+              }
+            >
+              Borrar pokemons
+            </DumpPokemons>
+          </DumpContainer>
+          {options.isActive ? (
+            <FilterByAbilities>
+              Buscando por habilidad : {options.query}
+            </FilterByAbilities>
+          ) : (
+            <></>
+          )}
+        </>
+      ) : (
+        <Navigation>
           <Link
             to={"/home"}
             style={{
@@ -145,10 +181,9 @@ const Navbar = () => {
           >
             <Img src={pokeLogo} />
           </Link>
-          <Img2 src={PokemonTitleLogo}/>
+          <Img2 src={PokemonTitleLogo} />
         </Navigation>
-        )
-      }
+      )}
     </>
   );
 };
