@@ -7,24 +7,31 @@ import {
   PokemonList,
   HomeContainer,
   ScrollLoader,
+  PokemonNotFound,
+  NotFoundContainer,
+  N404,
+  NotFoundMessage
 } from "./styled-components/Home";
 import Navbar from "../../components/Navbar/Navbar";
 import Loader from "../../components/Loader/Loader";
 import { InfinitySpin } from "react-loader-spinner";
+import Pokemon404 from "../../assets/pokeball2.png";
 
 const Home = () => {
   const { pokemonFeature, isSearch } = useAppSelector((state) => {
     return {
-      pokemonFeature : state.pokemons,
-      isSearch : state.specialRendering
-    }
-  })
-  
+      pokemonFeature: state.pokemons,
+      isSearch: state.specialRendering.isActive,
+    };
+  });
+
   const dispatch = useAppDispatch();
   const [offset, setOffset] = useState<number>(0);
   const [scrollLoader, setScrollLoader] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(isSearch);
+    if (isSearch) return;
     setTimeout(() => {
       dispatch(getAllPokemons(offset));
       setScrollLoader(false);
@@ -37,10 +44,8 @@ const Home = () => {
   }, []);
 
   const handleScroll = async () => {
-    console.log(isSearch.isActive)
-    if(isSearch.isActive){
-      console.log('hasta aca llego')
-      return
+    if (isSearch) {
+      return;
     }
 
     if (
@@ -52,15 +57,57 @@ const Home = () => {
     }
   };
 
- 
   return (
     <HomeContainer>
       {pokemonFeature.isLoad ? (
         <Loader />
       ) : (
         <>
-          <Navbar/>
+          <Navbar />
           <PokemonList>
+            {pokemonFeature.pokemons.length > 0 ? (
+              pokemonFeature.pokemons.map((pokemon: PokeMap, index: number) => {
+                return (
+                  <Card
+                    key={index}
+                    id={pokemon.id}
+                    name={pokemon.name}
+                    image={pokemon.image}
+                    weight={pokemon.weight}
+                    abilities={pokemon.abilities}
+                  />
+                );
+              })
+            ) : (
+              <>
+              <NotFoundContainer>
+                <N404>4</N404>
+                <PokemonNotFound src={Pokemon404} alt="404" />
+                <N404>4</N404>
+              </NotFoundContainer>
+              <NotFoundMessage>No se encontro el pokemon.</NotFoundMessage>
+              </>
+            )}
+          </PokemonList>
+          {isSearch ? (
+            <></>
+          ) : (
+            <ScrollLoader
+              style={scrollLoader ? { display: "" } : { display: "none" }}
+            >
+              <InfinitySpin color="#fff" />
+            </ScrollLoader>
+          )}
+        </>
+      )}
+    </HomeContainer>
+  );
+};
+
+export default Home;
+
+/**
+ * <PokemonList>
             {pokemonFeature.pokemons.map((pokemon: PokeMap, index: number) => {
               return (
                 <Card
@@ -73,17 +120,5 @@ const Home = () => {
                 />
               );
             })}
-          </PokemonList>
-          <ScrollLoader 
-            style={scrollLoader ? { display : ""} : { display : "none"}}>
-            <InfinitySpin
-            color="#fff"
-            />
-          </ScrollLoader>
-        </>
-      )}
-    </HomeContainer>
-  );
-};
-
-export default Home;
+    </PokemonList>
+ */

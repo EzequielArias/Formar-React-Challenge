@@ -83,7 +83,7 @@ export const pokemonSlice = createSlice({
     });
 
     builder.addCase(searchByInput.fulfilled, (state, action) => {
-            state.pokemons = action.payload
+            state.pokemons = [...action.payload]
             state.isLoad = false;
     });
 

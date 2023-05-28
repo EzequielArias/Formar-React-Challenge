@@ -52,7 +52,6 @@ const Navbar = () => {
         query: e.target.value,
       };
     });
-    dispatch(getAllPokemons(0))
   };
 
   const filterByInput = (e: any) => {
