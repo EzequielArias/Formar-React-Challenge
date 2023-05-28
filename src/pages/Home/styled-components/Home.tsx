@@ -31,6 +31,7 @@ export const NotFoundContainer = styled.div `
   display : flex;
   align-items : center;
   justify-content : center;
+  cursor : pointer;
 `
 
 export const N404 = styled.span `
@@ -45,6 +46,6 @@ color : black;
 height : 25vh;
 font-size : 3em;
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Montserrat:ital,wght@1,100&display=swap');
-font-family: 'Cherry Bomb One';
+font-family: 'Cherry Bomb One' cursive;
 text-align : center;
 `

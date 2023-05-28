@@ -64,8 +64,9 @@ export const pokemonSlice = createSlice({
     });
 
     builder.addCase(getAllPokemons.fulfilled, (state, action) => {
-      state.isLoad = false;
+       state.isLoad = false;
        state.pokemons =  [...state.pokemons, ...action.payload]
+       
     });
 
     builder.addCase(getAllPokemons.rejected, (state) => {
@@ -79,7 +80,7 @@ export const pokemonSlice = createSlice({
 
     // Search pokemons
     builder.addCase(searchByInput.pending, (state, action) => {
-      
+      state.isLoad = true
     });
 
     builder.addCase(searchByInput.fulfilled, (state, action) => {

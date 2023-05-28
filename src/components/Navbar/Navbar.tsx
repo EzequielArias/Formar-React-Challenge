@@ -24,7 +24,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import pokeLogo from "../../assets/pokeball2.png";
 import PokemonTitleLogo from "../../assets/PokemonLogo.png";
-import { isSearchActive } from "../../redux/reducers/specialRendering";
+import { isSearchActive, isSearchDown } from "../../redux/reducers/specialRendering";
 
 const Navbar = () => {
   const [options, setOptions] = useState<{ query: string; isActive: boolean }>({
@@ -85,7 +85,7 @@ const Navbar = () => {
           isActive: true,
         };
       });
-      dispatch(isSearchActive(""));
+      dispatch(isSearchActive());
       setOptions((prev) => {
         return {
           ...prev,
@@ -100,6 +100,7 @@ const Navbar = () => {
       return { query: "", isActive: false };
     });
     dispatch(getAllPokemons(0));
+    dispatch(isSearchDown())
   };
 
   const cleanPokemons = () => {
@@ -144,7 +145,6 @@ const Navbar = () => {
           >
             <SearchResult
               onClick={HandleSearch}
-              style={search.isActive ? { display: "" } : { display: "none" }}
             >
               Pokemons encontrados : {pokemons.length}
             </SearchResult>
@@ -160,7 +160,7 @@ const Navbar = () => {
             </DumpPokemons>
           </DumpContainer>
           {options.isActive ? (
-            <FilterByAbilities>
+            <FilterByAbilities style={options.query.length === 0 ? { display : "none"} : {display : "block"}}>
               Buscando por habilidad : {options.query}
             </FilterByAbilities>
           ) : (

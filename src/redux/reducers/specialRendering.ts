@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { IsSearch } from "../../interfaces/specialRendering";
 
 const initialState : IsSearch = {
@@ -10,10 +9,13 @@ export const specialRendering = createSlice({
     name : "special_render",
     initialState,
     reducers : {
-        isSearchActive : (state , action : PayloadAction<any>) => {
-            state.isActive = !state.isActive
+        isSearchActive : (state) => {
+            state.isActive = true
+        },
+        isSearchDown : (state) => {
+            state.isActive = false
         }
     }
 })
 
-export const { isSearchActive } = specialRendering.actions;
+export const { isSearchActive, isSearchDown } = specialRendering.actions;

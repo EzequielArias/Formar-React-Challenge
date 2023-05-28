@@ -56,7 +56,7 @@ const Home = () => {
       setOffset((prev) => prev + 16);
     }
   };
-
+  const restart = () => dispatch(getAllPokemons(offset))
   return (
     <HomeContainer>
       {pokemonFeature.isLoad ? (
@@ -80,7 +80,7 @@ const Home = () => {
               })
             ) : (
               <>
-              <NotFoundContainer>
+              <NotFoundContainer onClick={restart}>
                 <N404>4</N404>
                 <PokemonNotFound src={Pokemon404} alt="404" />
                 <N404>4</N404>
