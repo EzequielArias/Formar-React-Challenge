@@ -116,7 +116,7 @@ const Navbar = () => {
 
   return (
     <>
-      {location.pathname === "/home" || location.pathname === "/results" ? (
+      {location.pathname === "https://formar-react-challenge.vercel.app" ?(
         <>
           <Navigation>
             <Link
