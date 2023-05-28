@@ -21,7 +21,7 @@ const Card = ({ name, image, abilities, weight, id }: PokeMap) => {
   const [show, setShow] = useState(true);
   const dispatch = useAppDispatch();
 
-  const deletePOkemon = (e: any) => {
+  const deletePOkemon = () => {
     if (show) {
       setShow(!show);
       dispatch(pokemonDumpStorage(name));

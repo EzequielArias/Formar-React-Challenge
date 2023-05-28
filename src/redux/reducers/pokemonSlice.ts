@@ -79,7 +79,7 @@ export const pokemonSlice = createSlice({
     });
 
     // Search pokemons
-    builder.addCase(searchByInput.pending, (state, action) => {
+    builder.addCase(searchByInput.pending, (state) => {
       state.isLoad = true
     });
 
@@ -88,13 +88,13 @@ export const pokemonSlice = createSlice({
             state.isLoad = false;
     });
 
-    builder.addCase(searchByInput.rejected, (state, action) => {
+    builder.addCase(searchByInput.rejected, () => {
       console.log("Error searchInput reject");
     });
 
     // Get detailed pokemon
     
-    builder.addCase(getClickedPokemon.pending, (state, action) => {
+    builder.addCase(getClickedPokemon.pending, () => {
       console.log('Pending getCLicked pokemon')
     })
 
@@ -102,7 +102,7 @@ export const pokemonSlice = createSlice({
       state.pokemonDetail = action.payload
     })
 
-    builder.addCase(getClickedPokemon.rejected, (state, action) => {
+    builder.addCase(getClickedPokemon.rejected, () => {
       console.log('Something goes wrong')
     })
   },
