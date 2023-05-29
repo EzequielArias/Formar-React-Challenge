@@ -1,6 +1,5 @@
 import { LandingContainer, PokeImg, LandingSection, PokemonSlogan, ContinueBtn } from './styled-components/Landing'
 import Pikachu from '../../assets/Pikachu.png'
-import PokemonLogo from '../../assets/PokemonLogo.png'
 
 const Landing = () => {
   return (
