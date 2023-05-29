@@ -47,6 +47,10 @@ export const CardContainer = styled.div `
         margin : 5px
     }
 
+    &:hover{
+        transform : scale(1.1);
+    }
+
     @media screen and (max-width: 526px) {
         width : 95%;
     }
